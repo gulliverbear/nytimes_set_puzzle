@@ -9,7 +9,16 @@ class Shape(object):
         self.shading = shading
         
 def check_combo(combo):
-   # to do
+    symbol_set = set(i.symbol for i in combo)
+    color_set = set(i.color for i in combo)
+    number_set = set(i.number for i in combo)
+    shading_set = set(i.shading for i in combo)
+
+    for set_to_test in (symbol_set, color_set, number_set, shading_set):
+        if len(set_to_test) != len(combo) and len(set_to_test) != 1:
+            return False
+
+    return True
         
 shapes = []
 shapes.append(Shape((0,0),'squiggle', 'red', 1, 'full'))
@@ -22,4 +31,9 @@ shapes.append(Shape((2,0),'oval', 'red', 1, 'full'))
 shapes.append(Shape((2,1),'triangle', 'red', 2, 'empty'))
 shapes.append(Shape((2,2),'triangle', 'red', 2, 'dash'))
 
-# to do - solve the combinations
+combos = itertools.combinations(shapes, 3)
+for combo in combos:
+    if check_combo(combo):
+        for elem in combo:
+            print elem.index
+        print
